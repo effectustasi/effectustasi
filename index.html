@@ -1,525 +1,169 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>[hidden]{display:none!important}</style></head><body>
-<title>Kol Manşonu</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Manşon 3B Model</title>
+<meta name="description" content="Hortum taşıyan kol manşonu: döndürülebilir, yakınlaştırılabilir 3B model ve telefonda gerçek boyutta AR.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 <style>
-/* Ürün sitesi: koyu stüdyo girişi (ürün ışık altında), ardından açık klinik zeminli bölümler. Turuncu = hortum, mavi = manşon. */
-:root{
-  --bg:#f3f5f6; --surface:#ffffff; --ink:#121a21; --muted:#5a6670; --line:#dde3e6; --soft:#e8edef;
-  --hose:#cf561f; --sleeve:#2f6c9e; --night:#0d1215; --night2:#172026; --nightInk:#eef2f4; --nightMuted:#93a2ac;
-  --f-disp:"Archivo","Arial Narrow",system-ui,sans-serif;
-  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
-  --wrap:1180px;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#11171b; --surface:#182026; --ink:#e9eef1; --muted:#9aa8b2; --line:#26313a; --soft:#1e272e;
-  --hose:#e5733d; --sleeve:#6aa3d1; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#11171b; --surface:#182026; --ink:#e9eef1; --muted:#9aa8b2; --line:#26313a; --soft:#1e272e;
-  --hose:#e5733d; --sleeve:#6aa3d1; color-scheme:dark}
+:root{--bg:#f4f3ef;--panel:#ffffff;--ink:#16181b;--mute:#5d636b;--line:#dedbd3;--acc:#c2501c;--acc-ink:#fff;--stage:#eceae4}
+@media (prefers-color-scheme:dark){:root{--bg:#121315;--panel:#1b1d20;--ink:#eef0f2;--mute:#9aa1a9;--line:#2c2f34;--acc:#e0682f;--acc-ink:#fff;--stage:#17191c}}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:64px}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--night)}
-.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-a{color:inherit}
-h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;margin:0}
-.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--hose)}
-.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
-
-/* nav */
-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--night) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid #ffffff14}
-nav .wrap{display:flex;align-items:center;gap:24px;height:56px}
-.logo{font-family:var(--f-disp);font-weight:800;font-stretch:115%;color:var(--nightInk);font-size:17px;letter-spacing:.01em;text-decoration:none;display:flex;align-items:center;gap:9px;white-space:nowrap}
-.logo i{width:14px;height:14px;border-radius:50%;background:var(--hose);box-shadow:inset -3px -3px 0 #0003}
-nav ul{display:flex;gap:20px;list-style:none;margin:0 0 0 auto;padding:0;overflow-x:auto}
-nav ul a{color:var(--nightMuted);text-decoration:none;font-size:14px;white-space:nowrap}
-nav ul a:hover,nav ul a:focus-visible{color:var(--nightInk)}
-
-/* hero */
-.hero{background:radial-gradient(90% 120% at 70% 40%,#1f2b33 0%,var(--night) 62%);color:var(--nightInk);overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:24px;align-items:center;padding-block:56px 40px}
-.hero h1{font-size:clamp(38px,5.4vw,68px);line-height:.98;font-weight:780;font-stretch:72%;letter-spacing:-.01em;margin:16px 0 18px}
-.hero h1 em{font-style:normal;color:var(--hose)}
-.hero p.lead{color:#c3ced5;font-size:18px;max-width:30em;margin:0 0 28px}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;border-top:1px solid #ffffff1f;padding-top:18px}
-.stats b{display:block;font:600 26px/1.1 var(--f-mono);color:#fff}
-.stats span{display:block;font-size:12.5px;color:var(--nightMuted);margin-top:4px;line-height:1.35}
-.heroView{position:relative;overflow:hidden;aspect-ratio:1/1;max-height:640px;width:100%;max-width:100%}
-.heroView canvas{display:block;width:100%;height:100%}
-.heroCtl{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;background:#0d1215cc;border:1px solid #ffffff1c;border-radius:999px;padding:8px 16px;font-size:13px;color:var(--nightMuted);white-space:nowrap}
-.heroCtl input{width:150px;accent-color:var(--hose)}
-
-/* sections */
-section{padding-block:88px}
-section.alt{background:var(--surface);border-block:1px solid var(--line)}
-.sh{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 48px;align-items:end;margin-bottom:40px}
-.sh h2{font-size:clamp(30px,3.6vw,46px);line-height:1.02;font-weight:760;font-stretch:78%;margin-top:12px}
-.sh p{color:var(--muted);margin:0;max-width:34em}
-
-.prob{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.prob article{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px}
-.prob b{font:600 44px/1 var(--f-mono);color:var(--hose);display:block;letter-spacing:-.02em}
-.prob h3{font-size:19px;font-weight:700;font-stretch:90%;margin:14px 0 8px}
-.prob p{margin:0;color:var(--muted);font-size:15px}
-.prob small{display:block;margin-top:14px;font:12px/1.4 var(--f-mono);color:var(--muted)}
-
-.feat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.feat article{background:var(--surface);padding:24px 22px 26px}
-.feat svg{width:100%;height:auto;max-height:110px;display:block;margin-bottom:16px}
-.feat h3{font-size:18px;font-weight:700;font-stretch:90%;margin:0 0 6px}
-.feat p{margin:0;font-size:14.5px;color:var(--muted)}
-
-.guide{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px;align-items:start}
-.gView{position:sticky;top:76px;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:radial-gradient(110% 90% at 50% 30%,#ffffff 0%,#e3e9ec 70%,#d6dee2 100%);border:1px solid var(--line)}
-.gView canvas{display:block;width:100%;height:100%}
-.gCap{position:absolute;left:16px;right:16px;bottom:16px;background:#ffffffeb;color:#121a21;border-radius:12px;padding:12px 16px;box-shadow:0 8px 30px #0d121522;display:flex;gap:12px;align-items:baseline}
-.gCap b{font:600 13px var(--f-mono);color:#cf561f;white-space:nowrap}
-.gCap span{font-weight:600}
-#tik{position:absolute;left:50%;top:18px;transform:translateX(-50%) scale(.8);background:#cf561f;color:#fff;font:700 15px var(--f-body);padding:7px 18px;border-radius:99px;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none}
-#tik.on{opacity:1;transform:translateX(-50%) scale(1)}
-.gCtl{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.btn{all:unset;cursor:pointer;padding:10px 16px;border-radius:9px;font-weight:600;font-size:14px;background:var(--ink);color:var(--bg)}
-.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
-.btn:focus-visible,.gstep:focus-visible,.part:focus-visible,.thumb:focus-visible{outline:2px solid var(--hose);outline-offset:2px}
-.who{font:500 11.5px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px}
-.gstep{all:unset;cursor:pointer;display:grid;grid-template-columns:30px minmax(0,1fr);gap:2px 12px;padding:12px 14px;border-radius:12px;width:100%;box-sizing:border-box;margin-bottom:4px;transition:background .2s}
-.gstep i{grid-row:span 2;font:600 13px/30px var(--f-mono);text-align:center;width:30px;height:30px;border-radius:50%;background:var(--soft);font-style:normal}
-.gstep span{font-weight:600}
-.gstep small{color:var(--muted);font-size:13.5px;line-height:1.45;display:none}
-.gstep:hover{background:var(--soft)}
-.gstep[aria-current="true"]{background:var(--surface);box-shadow:0 0 0 1px var(--line),0 6px 20px #0d121512}
-.gstep[aria-current="true"] i{background:var(--hose);color:#fff}
-.gstep[aria-current="true"] small{display:block}
-.note{font-size:13.5px;color:var(--muted);margin-top:14px}
-
-.parts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
-.part{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;display:grid;grid-template-rows:auto auto 1fr auto;gap:6px}
-.part header{display:flex;justify-content:space-between;align-items:baseline}
-.part .n{font:600 13px var(--f-mono);color:var(--hose)}
-.part .g{font:500 13px var(--f-mono);color:var(--muted)}
-.part h3{font-size:18px;font-weight:700;font-stretch:90%}
-.part p{margin:0;font-size:14px;color:var(--muted)}
-.part dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;margin:8px 0 0;font-size:13px;border-top:1px solid var(--line);padding-top:10px}
-.part dt{color:var(--muted)} .part dd{margin:0;font-family:var(--f-mono);font-size:12.5px}
-
-.thumbs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.thumb{all:unset;cursor:pointer;display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;transition:transform .2s,box-shadow .2s}
-.thumb:hover{transform:translateY(-3px);box-shadow:0 12px 30px #0d12151f}
-.thumb img{display:block;width:100%;aspect-ratio:420/297;object-fit:cover}
-.thumb span{display:block;padding:10px 12px;font-size:13.5px;font-weight:600;color:#121a21;border-top:1px solid #e3e8ea}
-.tool{margin-top:22px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:14.5px}
-
-.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.cols article{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
-.cols h3{font-size:19px;font-weight:700;font-stretch:90%;margin-bottom:10px}
-.cols ol{margin:0;padding-left:20px;font-size:14.5px} .cols li{margin-bottom:8px}
-.scale{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:22px}
-.scale div{flex:1 1 260px;border-radius:14px;padding:18px 20px;background:var(--ink);color:var(--bg)}
-.scale b{font:600 28px var(--f-mono);display:block;color:var(--hose)}
-
-footer{background:var(--night);color:var(--nightMuted);font-size:13.5px;padding-block:40px}
-footer .wrap{display:grid;grid-template-columns:2fr 1fr;gap:24px}
-footer b{color:var(--nightInk)}
-
-.lb{position:fixed;inset:0;z-index:50;background:#0a0e10ee;display:flex;flex-direction:column}
-.lb[hidden]{display:none}
-.lb .bar{display:flex;justify-content:space-between;align-items:center;color:#fff;font-weight:600;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
-.lb .sc{overflow:auto;flex:1}
-.lb img{display:block;width:1800px;max-width:none;margin:0 auto;background:#fff}
-.lbl{position:absolute;left:0;top:0;transform:translate(-50%,-50%);pointer-events:none;font:600 11.5px/1 var(--f-body);white-space:nowrap;display:flex;align-items:center;gap:6px;padding:4px 9px 4px 4px;border-radius:99px;background:#ffffffee;color:#121a21;box-shadow:0 2px 8px #0003}
-.lbl b{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#cf561f;color:#fff;font:600 10.5px var(--f-mono)}
-.loading{position:absolute;inset:0;display:grid;place-items:center;font-size:14px;color:var(--nightMuted);pointer-events:none}
-
-@media (max-width:900px){
-  .hero .wrap,.sh,.guide,footer .wrap{grid-template-columns:1fr}
-  .heroView{aspect-ratio:1/1}
-  .prob,.cols{grid-template-columns:1fr}
-  .feat{grid-template-columns:1fr 1fr}
-  .thumbs{grid-template-columns:1fr 1fr}
-  .gView{position:relative;top:0}
-  nav ul{display:none}
-  section{padding-block:64px}
-  .lb img{width:1200px}
-}
-@media (max-width:520px){ .feat{grid-template-columns:1fr} .stats b{font-size:21px} .heroCtl input{width:100px} }
-@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+header h1{font-size:16px;margin:0;font-weight:700;letter-spacing:-.01em}
+header a{color:var(--mute);text-decoration:none;font-size:13px}
+header a:hover{color:var(--ink)}
+main{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:9px 16px;border-radius:999px;font:600 14px Inter,sans-serif;cursor:pointer}
+.tab[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.stage{position:relative;border-radius:16px;overflow:hidden;background:var(--stage);border:1px solid var(--line)}
+model-viewer{width:100%;height:min(72vh,680px);min-height:380px;--poster-color:transparent;background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,.55),transparent 70%)}
+@media (prefers-color-scheme:dark){model-viewer{background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,.06),transparent 70%)}}
+.hint{position:absolute;left:12px;bottom:12px;font-size:12px;color:var(--mute);background:var(--panel);border:1px solid var(--line);padding:6px 10px;border-radius:8px;pointer-events:none}
+.ar{position:absolute;right:12px;bottom:12px;background:var(--acc);color:var(--acc-ink);border:0;border-radius:999px;padding:10px 16px;font:600 14px Inter,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.ctl{position:absolute;right:12px;top:12px;display:flex;gap:6px}
+.ctl button{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font:500 13px Inter,sans-serif;cursor:pointer}
+.bar{position:absolute;left:0;right:0;top:0;height:3px;background:transparent}
+.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .2s}
+.info{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:16px}
+@media (max-width:760px){.info{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h2{font-size:15px;margin:0 0 8px}
+.card p{margin:0 0 8px;color:var(--mute)}
+ul.parts{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:14px}
+ul.parts li{display:flex;gap:8px;align-items:baseline}
+ul.parts b{color:var(--acc);font-weight:600;min-width:30px}
+.dl a{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:14px}
+.dl a:last-child{border:0}
+.dl a span{color:var(--mute);font-size:13px}
+.qr{display:flex;gap:14px;align-items:center;margin-top:12px}
+.qr img{width:104px;height:104px;border-radius:8px;background:#fff;padding:6px}
+.exp{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;margin-top:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.exp .btns{display:flex;gap:6px;flex-wrap:wrap}
+.exp .tab.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.sl{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mute);flex:1;min-width:240px;max-width:460px}
+.sl input{flex:1;accent-color:var(--acc)}
+.lbl{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:3px 9px;font:600 11.5px Inter,sans-serif;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12);pointer-events:none;transform:translate(-50%,-50%);transition:opacity .2s}
+.lbl b{color:var(--acc);margin-right:4px}
+.lbl.ref{color:var(--mute);font-weight:500;border-style:dashed}
+.nolbl .lbl{opacity:0}
+footer{color:var(--mute);font-size:12px;text-align:center;padding:24px 16px}
 </style>
+</head>
+<body>
+<header>
+  <h1>Hortum taşıyıcı kol manşonu · 3B model</h1>
+  <span style="color:var(--mute);font-size:13px">Ürün Tasarımı 3</span>
+</header>
+<main>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-m="manson">Kolda montaj</button>
+    <button class="tab" role="tab" aria-selected="false" data-m="klips">Klips (detay)</button>
+  </div>
 
-<nav><div class="wrap">
-  <a class="logo" href="#ust"><i></i>kol manşonu</a>
-  <ul>
-    <li><a href="#sorun">Sorun</a></li><li><a href="#calisma">Nasıl çalışır</a></li><li><a href="#takma">Nasıl takılır</a></li>
-    <li><a href="#parcalar">Parçalar</a></li><li><a href="#resim">Teknik resim</a></li><li><a href="#maket">Maket</a></li>
-  </ul>
-</div></nav>
+  <div class="stage">
+    <div class="bar"><i id="bar"></i></div>
+    <model-viewer id="mv" src="manson.glb" camera-orbit="40deg 70deg 70%" alt="Kol manşonu ve hortum klipsi 3B modeli"
+      camera-controls touch-action="pan-y" auto-rotate auto-rotate-delay="1500" rotation-per-second="18deg"
+      shadow-intensity="1" shadow-softness="0.8" exposure="1.05" environment-image="neutral" tone-mapping="aces"
+      interaction-prompt="auto" max-camera-orbit="auto auto 400%" animation-name="patlat" ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" ar-placement="floor">
+      <button slot="ar-button" class="ar">Telefonda gerçek boyutta gör (AR)</button>
+    </model-viewer>
+    <div class="ctl">
+      <button id="rot">Döndürmeyi durdur</button>
+      <button id="reset">Sıfırla</button>
+    </div>
+    <div class="hint" id="hint">Sürükle: döndür · Kaydır / iki parmak: yakınlaştır · Sağ tık: kaydır</div>
+  </div>
 
-<header class="hero" id="ust"><div class="wrap">
-  <div>
-    <div class="eyebrow">Diş hekimliği · el aleti hortumu</div>
-    <h1>Hortumu elden alır, <em>kola verir.</em></h1>
-    <p class="lead">Türbin ve mikromotor hortumu hekimin elini çeker ve burar. Önlüğün altına giyilen manşon ve hortumdaki küçük mıknatıslı klips, bu yükü elden ön kola taşır. Bağlanmak tek hareket; aleti bırakınca kendiliğinden ayrılır.</p>
-    <div class="stats">
-      <div><b>3–5</b><span>kez her hastada hortumu elle düzeltiyor (4 hekimden 3'ü)</span></div>
-      <div><b>%70,9</b><span>diş hekimlerinde kas-iskelet sorunu</span></div>
-      <div><b>11,9 g</b><span>klipsin tamamı, mıknatıs dahil</span></div>
+  <div class="exp">
+    <div class="btns">
+      <button class="tab" id="bAyir">Parçalarına ayır</button>
+      <button class="tab" id="bBirlestir">Birleştir</button>
+      <button class="tab" id="bOynat">▶ Oynat</button>
+      <button class="tab on" id="bIsim">İsimler açık</button>
+    </div>
+    <label class="sl"><span>Birleşik</span><input type="range" id="sl" min="0" max="1" step="0.001" value="0" aria-label="Parçalara ayırma miktarı"><span>Ayrık</span></label>
+  </div>
+
+  <div class="info">
+    <div class="card" id="desc"></div>
+    <div class="card">
+      <h2>İndir ve aç</h2>
+      <div class="dl">
+        <a href="manson.glb" download>Montaj modeli (.glb) <span>3,7 MB · her 3B görüntüleyici</span></a>
+        <a href="klips.glb" download>Klips modeli (.glb) <span>1,5 MB</span></a>
+        <a href="manson_detay_montaj.step" download>Montaj (.step) <span>SolidWorks, Fusion, Inventor</span></a>
+        <a href="klips_detay.step" download>Klips (.step) <span>CAD</span></a>
+      </div>
+      <div class="qr">
+        <img src="qr.png" alt="Bu sayfanın QR kodu">
+        <p style="margin:0;color:var(--mute);font-size:13px">Telefonla okutun. Modeli elinizde döndürebilir, AR ile masaya gerçek boyutta koyabilirsiniz.</p>
+      </div>
     </div>
   </div>
-  <div class="heroView" id="hero">
-    <div class="loading" id="heroLoad">3B model yükleniyor…</div>
-    <label class="heroCtl">Bütün <input id="heroEx" type="range" min="0" max="1" step="0.01" value="0" aria-label="Parçalarına ayır"> Parçalarına ayır</label>
-  </div>
-</div></header>
+</main>
+<footer>Ahmet Efe · Ürün Tasarımı 3 · Ölçüler mm, model gerçek boyutta (1:1).</footer>
 
-<section id="sorun"><div class="wrap">
-  <div class="sh"><div><div class="eyebrow">Sorun</div><h2>Ağırlık değil, çekiş.</h2></div>
-    <p>Hekimler aletin ağırlığından pek şikâyet etmiyor. Asıl yoran, hortumun eli çekmesi, burması ve her hastada defalarca düzeltilmesi.</p></div>
-  <div class="prob">
-    <article><b>%70,9</b><h3>Kas-iskelet sorunu</h3><p>Gaziantep'teki diş hekimlerinin büyük çoğunluğu en az bir kas-iskelet sorunu yaşıyor.</p><small>Asıldağ &amp; Özçırpıcı 2016</small></article>
-    <article><b>15–45×</b><h3>Hortum, aletin kendisinden güçlü</h3><p>180° burulan hortumun torku 14–22 mN·m; frezenin kesme torkunun 15–45 katı.</p><small>Olsen, US 4,553,938 (1985) · Taylor 1962</small></article>
-    <article><b>3 / 4</b><h3>Her hastada düzeltme</h3><p>Ankete katılan 4 fakülte hekiminden 3'ü her hastada hortumu 3–5 kez elle düzeltiyor.</p><small>Kendi anketimiz, n = 4</small></article>
-  </div>
-</div></section>
-
-<section id="calisma" class="alt"><div class="wrap">
-  <div class="sh"><div><div class="eyebrow">Nasıl çalışır</div><h2>Dört küçük karar, bir boş el.</h2></div>
-    <p>Bileklikler hortumu bileğe bağlar ve her seferinde iki elle takılır. Bu tasarımda el ve bilek tamamen boş kalır.</p></div>
-  <div class="feat">
-    <article>
-      <svg viewBox="0 0 200 110" aria-hidden="true"><rect x="10" y="62" width="180" height="26" rx="13" fill="#2f6c9e"/><circle cx="118" cy="62" r="12" fill="#4a4f55"/><g transform="translate(96 18)"><rect x="0" y="0" width="44" height="22" rx="6" fill="#f2f1ec" stroke="#b9bfc4"/><rect x="16" y="22" width="12" height="10" fill="#f2f1ec" stroke="#b9bfc4"/></g><path d="M60 40 q30 -30 60 -8" fill="none" stroke="#cf561f" stroke-width="2.5" stroke-dasharray="4 4"/><text x="60" y="104" font-family="IBM Plex Mono,monospace" font-size="11" fill="#5a6670">bastır → tık</text></svg>
-      <h3>Tek hareket</h3><p>Alet alınınca klips hortumda sarkar. Ön kolu klipse bastırmak yeter; bakmaya gerek yok.</p></article>
-    <article>
-      <svg viewBox="0 0 200 110" aria-hidden="true"><path d="M10 40 H60 L74 76 Q80 84 92 80 L190 48" fill="none" stroke="#4a4f55" stroke-width="4" stroke-linejoin="round"/><text x="22" y="98" font-family="IBM Plex Mono,monospace" font-size="11" fill="#5a6670">dik: tutar</text><text x="118" y="98" font-family="IBM Plex Mono,monospace" font-size="11" fill="#5a6670">sığ: bırakır</text></svg>
-      <h3>Yöne göre tutar</h3><p>Pedin kaşık biçimli çukuru, hortumun ağırlığını dik duvarla tutar; aleti askıya bırakınca klips sığ taraftan çıkar.</p></article>
-    <article>
-      <svg viewBox="0 0 200 110" aria-hidden="true"><rect x="20" y="44" width="160" height="22" rx="11" fill="#cf561f"/><rect x="76" y="34" width="48" height="42" rx="8" fill="#f2f1ec" stroke="#b9bfc4"/><path d="M140 22 a26 26 0 1 1 -10 -8" fill="none" stroke="#2f6c9e" stroke-width="2.5"/><path d="M128 8 l6 8 -10 2" fill="none" stroke="#2f6c9e" stroke-width="2.5"/></svg>
-      <h3>Döner gövde</h3><p>Hortum klipsin içinde döner, gövde kolda kalır. Burulma sıfırlanmaz ama sürtünmeyle sınırlanır.</p></article>
-    <article>
-      <svg viewBox="0 0 200 110" aria-hidden="true"><rect x="10" y="20" width="120" height="26" rx="13" fill="#2f6c9e"/><g transform="translate(120 52) rotate(18)"><rect width="40" height="20" rx="6" fill="#f2f1ec" stroke="#b9bfc4"/></g><path d="M100 90 C140 90 170 80 190 104" fill="none" stroke="#cf561f" stroke-width="6" stroke-linecap="round"/><path d="M150 50 l14 -6 M156 62 l16 0" stroke="#cf561f" stroke-width="2"/></svg>
-      <h3>Takılınca kopar</h3><p>Asistanın eli hortuma takılırsa klips koldan ayrılır; alet hekimin elinde kalır, kontrol kaybolmaz.</p></article>
-  </div>
-</div></section>
-
-<section id="takma"><div class="wrap">
-  <div class="sh"><div><div class="eyebrow">Nasıl takılır</div><h2>Bir kez hortuma, her gün kola.</h2></div>
-    <p>Klips her alet hortumuna bir kez takılır ve orada kalır. Hekim her gün yalnızca manşonu giyer.</p></div>
-  <div class="guide">
-    <div class="gView" id="gview">
-      <div class="loading" id="gLoad" style="color:#5a6670">3B model yükleniyor…</div>
-      <div id="tik">tık</div>
-      <div class="gCap"><b id="gNum">1 / 10</b><span id="gTitle">Kutudan çıkanlar</span></div>
-    </div>
-    <div>
-      <div class="gCtl"><button class="btn" id="gPlay">Baştan oynat</button><button class="btn ghost" id="gPrev">Geri</button><button class="btn ghost" id="gNext">İleri</button></div>
-      <div id="gList"></div>
-      <p class="note">Mıknatıs, çelik kap ve kubbe fabrikada gövdeye takılı gelir. Modeli sürükleyerek döndürebilirsin.</p>
-    </div>
-  </div>
-</div></section>
-
-<section id="parcalar" class="alt"><div class="wrap">
-  <div class="sh"><div><div class="eyebrow">Parçalar</div><h2>On bir parça, iki kullanıcı.</h2></div>
-    <p>Klips kliniğe ait, her alet hortumunda kalır. Manşon ve pedler hekime ait, yıkanır. Gramajlar CAD hacminden, ürün malzemeleriyle.</p></div>
-  <div class="parts" id="parts"></div>
-</div></section>
-
-<section id="resim"><div class="wrap">
-  <div class="sh"><div><div class="eyebrow">Teknik resim</div><h2>Ölçülü dört pafta.</h2></div>
-    <p>Gerçek CAD geometrisinden gizli çizgi ve kesit alınarak çizildi. Dokununca tam boy açılır. Ölçüler mm; henüz ölçümle doğrulanmadı.</p></div>
-  <div class="thumbs" id="thumbs"></div>
-  <p class="tool"><a class="btn" href="model/">3B modeli tam ekran aç (AR, indirme)</a> Ölçü çizgileri, kesit ve parça parça inceleme için: <a href="https://claude.ai/artifact/ULUtq6e2EufASRHhBfFD3D" target="_blank" rel="noopener">teknik inceleme sayfası ↗</a></p>
-</div></section>
-
-<section id="maket" class="alt"><div class="wrap">
-  <div class="sh"><div><div class="eyebrow">Maket rehberi</div><h2>Atölyede nasıl yapılır.</h2></div>
-    <p>Final teslimdeki 1:1 maket için malzeme ve sıra. Her parçanın STL ve STEP dosyası bilgisayarında: <span class="mono">cad\cikti\detay\</span></p></div>
-  <div class="scale">
-    <div><b>1:1</b>Manşon ve pedler. Kendi koluna giydirilecek boyda.</div>
-    <div><b>3:1</b>Klips için ek büyük maket (Ø66 × 123 mm). 1:1 klips jüride okunmayacak kadar küçük; STL'yi %300 ölçekle bas.</div>
-  </div>
-  <div class="cols">
-    <article><h3>Klips</h3><ol>
-      <li>Burç: 3B baskı (PETG) ya da Ø16/Ø12 boru, 41 mm. Bir ucuna 3 mm levhadan Ø22 halka.</li>
-      <li>Ayırma çizgisini ince bir kazımayla göster; burcun üstüne 3 × 8 mm turuncu işaret.</li>
-      <li>Gövde: Ø22 / iç Ø16,5 halka, 12 mm. Burcun üstünde dönmeli. Yanına Ø13 dübelden 2 mm boyun.</li>
-      <li>Boyna gerçek Ø10 × 3 neodim mıknatıs göm; üstüne macundan Ø13 × 1,5 kubbe.</li>
-      <li>Ünite ucuna siyah O-ring.</li></ol></article>
-    <article><h3>Ped (3 adet)</h3><ol>
-      <li>2–3 mm gri EVA ya da silikondan Ø28 daire.</li>
-      <li>Arkasına Ø25 çelik pul; önce mıknatısla tutuyor mu dene.</li>
-      <li>Ø14 çukur çiz, dibini ünite tarafına ve aşağı kaydırarak 1,5 mm oy. Bir yanı dik, öbürü yayvan.</li>
-      <li>Kenarı zımparala, koyu gri boya.</li></ol></article>
-    <article><h3>Manşon</h3><ol>
-      <li>Mavi spor kol bandından üst kol 170 + ön kol 170 mm.</li>
-      <li>Dirsek arkasını oval aç, kenarlara 5 mm, uçlara 12 mm biye.</li>
-      <li>Ön kolun dış yanına 44 mm koyu mavi şerit (dirsekten 70–180 mm).</li>
-      <li>Pedleri dirsekten 100 ve 150 mm'ye, park pedini üst kolda 120 mm'ye dik.</li>
-      <li>Ø12 turuncu hortum parçasıyla klipsi dirsekten 150 mm'de göster.</li></ol></article>
-  </div>
-</div></section>
-
-<footer><div class="wrap">
-  <div><b>Mıknatıslı kol manşonu</b> · Ahmet Efe Köroğlu · İSTÜN Endüstriyel Tasarım Mühendisliği · ETM305 Ürün Tasarımı III · 2026<br>
-  Konsept v3. Ölçüler ve kuvvet eşikleri tahmindir; hortum ağırlığı, mıknatıs kopma kuvveti ve gevşek pay boyu henüz ölçülmedi. Anket n = 4, doğrulanmış ölçek değildir.</div>
-  <div>Kalp pili veya implantı olan kişiler mıknatıslı parçadan uzak tutulmalıdır (hekim ve hasta için).</div>
-</div></footer>
-
-<div class="lb" id="lb" hidden><div class="bar"><span id="lbT"></span><button class="btn" id="lbX" style="background:#fff;color:#111">Kapat</button></div><div class="sc"><img id="lbI" alt=""></div></div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/environments/RoomEnvironment.js"></script>
 <script>
-(function(){
-const V=(x,y,z)=>new THREE.Vector3(x,y,z);
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const P={
- P01:{no:1,ad:'Burç yarımı A',adet:'1',g:2.93,mal:'POM (asetal), gri',olcu:'Ø16 / Ø12 × 41 · omuz Ø22 × 3',is:'Hortuma sabit oturur. El tarafındaki sert omuz gövdeye yaslanır, klips sabit destek olur. İçte 4 nervür hortumu tutar.',maket:'3B baskı ya da Ø16 boru + Ø22 halka'},
- P02:{no:2,ad:'Burç yarımı B',adet:'1',g:2.85,mal:'POM (asetal), gri',olcu:'A ile simetrik, dil yerine yuva',is:'İki yarım hortumun üstünde kapanır; ayırma çizgisi boyunca dil-yuva + yapıştırma.',maket:'3B baskı; makette tek parça boru da olur'},
- P03:{no:3,ad:'Yumuşak durdurucu',adet:'1',g:0.36,mal:'TPE Shore 60A, siyah',olcu:'Ø19 × 3 · iç dudak Ø14,4',is:'Ünite ucunda. Aşırı uzanmada gövdenin ~20 mm kaymasına izin verir (taşma emniyeti).',maket:'siyah O-ring ya da 3 mm EVA'},
- P04:{no:4,ad:'Gövde',adet:'1',g:2.69,mal:'POM, beyaz',olcu:'Ø22 / Ø16,5 × 12 · boyun Ø13',is:'Burç üstünde serbest döner (0,25 mm boşluk). Boynunda mıknatıs kabının yuvası var.',maket:'3B baskı ya da Ø22 boru + Ø13 dübel'},
- P05:{no:5,ad:'Kubbe kapağı',adet:'1',g:0.07,mal:'POM, beyaz',olcu:'Ø13 × 1,5 (R14,8) · uç eksenden 14',is:'Pedin U çukuruna oturur. Mıknatısın önünde 1,0 mm malzeme.',maket:'epoksi macun / Fimo'},
- P06:{no:6,ad:'Mıknatıs',adet:'1',g:1.77,mal:'NdFeB N42, nikel kaplı',olcu:'Ø10 × 3',is:'Pedin içindeki çelik diski çeker. Kısa menzil (~1 cm).',maket:'gerçek Ø10 × 3 neodim'},
- P07:{no:7,ad:'Çelik kap',adet:'1',g:1.26,mal:'yumuşak çelik, 0,5 et',olcu:'Ø12 × 3,5',is:'Mıknatısı yandan ve arkadan sarar: tek yüz çeker, askıdaki freze/tablaya yapışmaz.',maket:'Ø12 metal kapak (atlanabilir)'},
- P08:{no:8,ad:'Ped',adet:'3',g:1.18,mal:'TPU Shore 85A, koyu gri',olcu:'Ø28 × 2,5 · U çukur 1,5',is:'Dik duvar ünite tarafında ve altta (ağırlık + çekiş), sığ rampa el tarafında (askıya bırakınca klips çıkar).',maket:'gri EVA 2–3 mm, çukuru oy'},
- P09:{no:9,ad:'Çelik disk',adet:'3',g:3.85,mal:'ferritik paslanmaz (430)',olcu:'Ø25 × 1,0',is:'Pedin arkasındaki cebe takılır. Mıknatıs yok, manşon yıkanabilir.',maket:'Ø25 çelik pul'},
- P10:{no:10,ad:'Manşon',adet:'1',g:null,mal:'iki yüzlü örgü 0,6–1 mm',olcu:'üst kol 170 + ön kol 170 · Ø106 / Ø82',is:'Formanın üstüne, önlüğün altına giyilir. Dirsek arkası açık.',maket:'mavi spor kol bandı'},
- P11:{no:11,ad:'Biye, şerit, dikiş, kulp',adet:'—',g:null,mal:'dokuma şerit',olcu:'uç biyesi 12 · ped şeridi 44 · dirsek biyesi 5',is:'Uçlarda silikon tutunma bandı, ped şeridi sık örgü, dikiş ön kolun altında ve üst kolun arkasında.',maket:'biye şerit, koyu mavi kumaş'},
+const D={
+  manson:{src:'manson.glb',orbit:'40deg 70deg '+(innerWidth<600?'110%':'85%'),title:'Kolda montaj',
+    text:'Önlüğün altına giyilen manşon ve hortumdaki küçük mıknatıslı klips, hortumun çekişini elden ön kola taşır. Bağlanmak tek hareket: ön kolu klipse bastırmak yeter. Aleti bırakınca klips kendiliğinden ayrılır. Kol, el ve hortum yalnızca ölçek için gösterilen referanslardır.',
+    parts:[['P10','Manşon'],['P11','Biye, şerit, kulp'],['P08','Ped ×3'],['P09','Çelik disk ×3'],['—','Klips (detay sekmesinde)'],['ref','Kol, el, hortum']]},
+  klips:{src:'klips.glb',orbit:'30deg 72deg '+(innerWidth<600?'210%':'150%'),target:'-0.03m 0.008m 0m',title:'Klips (detay)',
+    text:'Her alet hortumuna bir kez takılır ve orada kalır. Hortum klipsin içinde döner, gövde kolda kalır. Pedin kaşık biçimli çukuru yükü dik duvarla tutar, alet askıya bırakılınca klips sığ taraftan çıkar. Asistanın eli hortuma takılırsa klips koldan ayrılır. Mıknatıs dahil 11,9 g.',
+    parts:[['P01','Burç yarımı A'],['P02','Burç yarımı B'],['P03','Durdurucu'],['P04','Gövde'],['P05','Kubbe kapak'],['P06','Mıknatıs'],['P07','Çelik kap'],['P08','Ped'],['P09','Çelik disk']]}
 };
-
-// ---------- malzemeler ----------
-function matFor(key,name){
-  const M=(o)=>new THREE.MeshPhysicalMaterial(Object.assign({side:THREE.DoubleSide},o));
-  if(/hortum/.test(name)) return M({color:0xb9420f,roughness:.38,clearcoat:.5,clearcoatRoughness:.35});
-  switch(key){
-    case 'P01': case 'P02': return M({color:0xa9adb0,roughness:.42,clearcoat:.25,clearcoatRoughness:.5});
-    case 'P03': return M({color:0x222326,roughness:.78});
-    case 'P04': case 'P05': return M({color:0xf5f4f0,roughness:.3,clearcoat:.6,clearcoatRoughness:.25});
-    case 'P06': return M({color:0xc8cacd,metalness:1,roughness:.18});
-    case 'P07': return M({color:0x8d9196,metalness:1,roughness:.32});
-    case 'P08': return M({color:0x3d4246,roughness:.68,clearcoat:.15});
-    case 'P09': return M({color:0xb6babe,metalness:1,roughness:.28});
-    case 'P10': return M({color:0x3570a3,roughness:.92,sheen:0});
-    case 'P11': return M({color:0x20456a,roughness:.88});
-  }
-  return M({color:0x999999,roughness:.6});
+let cur;const mv=document.getElementById('mv'),desc=document.getElementById('desc'),bar=document.getElementById('bar');
+function show(k){
+  const d=D[k];
+  cur=d;buildLabels(k);mv.setAttribute('camera-orbit',d.orbit);mv.setAttribute('camera-target',d.target||'auto auto auto');
+  if(mv.getAttribute('src')!==d.src)mv.setAttribute('src',d.src);else mv.jumpCameraToGoal?.();
+  desc.innerHTML='<h2>'+d.title+'</h2><p>'+d.text+'</p><ul class="parts">'+d.parts.map(p=>'<li><b>'+p[0]+'</b>'+p[1]+'</li>').join('')+'</ul>';
+  document.querySelectorAll('.tabs .tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.m===k));
 }
-function keyOf(o){ let r=null; for(let p=o;p;p=p.parent){ const n=p.name||''; const m=n.match(/^(P\d\d)/); if(m) r={key:m[1],node:p,name:n}; else if(/^ref_/.test(n)) r={key:'ref',node:p,name:n}; } return r; }
-
-// ---------- görüntüleyici ----------
-function viewer(el,opt){
-  const r=new THREE.WebGLRenderer({antialias:true,alpha:true});
-  r.setPixelRatio(Math.min(devicePixelRatio,2));
-  r.outputEncoding=THREE.sRGBEncoding; r.toneMapping=THREE.ACESFilmicToneMapping; r.toneMappingExposure=opt.exposure||1.0;
-  r.physicallyCorrectLights=true;
-  r.shadowMap.enabled=!!opt.shadow; r.shadowMap.type=THREE.PCFSoftShadowMap;
-  el.prepend(r.domElement);
-  const scene=new THREE.Scene();
-  const pm=new THREE.PMREMGenerator(r);
-  scene.environment=pm.fromScene(new THREE.RoomEnvironment(),0.04).texture;
-  const cam=new THREE.PerspectiveCamera(opt.fov||30,1,1,20000);
-  const ctl=new THREE.OrbitControls(cam,r.domElement); ctl.enableDamping=true; ctl.dampingFactor=.08;
-  ctl.enableZoom=true; ctl.zoomSpeed=.6; ctl.enablePan=false;
-  const key=new THREE.DirectionalLight(0xffffff,opt.keyI||2.2); key.position.set(250,400,300); scene.add(key); scene.add(key.target);
-  const rim=new THREE.DirectionalLight(opt.rimColor||0xbfd7ff,opt.rimI||1.6); rim.position.set(-300,150,-350); scene.add(rim);
-  if(opt.shadow){ key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.radius=6; key.shadow.bias=-0.0004; key.shadow.normalBias=0.4; }
-  const v={el,r,scene,cam,ctl,key,visible:true,labels:[]};
-  function resize(){ const w=el.clientWidth,h=el.clientHeight; if(!w||!h) return; r.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix(); }
-  new ResizeObserver(resize).observe(el); resize();
-  new IntersectionObserver(e=>{v.visible=e[0].isIntersecting;}).observe(el);
-  v.resize=resize;
-  return v;
-}
-function shadowGround(v,y,size){
-  const g=new THREE.Mesh(new THREE.PlaneGeometry(size,size),new THREE.ShadowMaterial({opacity:.22}));
-  g.rotation.x=-Math.PI/2; g.position.y=y; g.receiveShadow=true; v.scene.add(g); return g;
-}
-function fitShadow(v,box){
-  const c=box.getCenter(new THREE.Vector3()), s=box.getSize(new THREE.Vector3()).length();
-  const sc=v.key.shadow.camera; sc.left=-s;sc.right=s;sc.top=s;sc.bottom=-s;sc.near=1;sc.far=s*6; sc.updateProjectionMatrix();
-  v.key.target.position.copy(c); v.key.position.copy(c).add(V(.6,1,.7).multiplyScalar(s*1.8));
-}
-function prep(root,v,shadow){
-  const nodes=[], meshes=[];
-  root.traverse(o=>{
-    const k=keyOf(o); if(!k) return;
-    if(o===k.node) nodes.push({node:o,key:k.key,name:k.name,base:o.position.clone()});
-    if(o.isMesh){ o.material=matFor(k.key,k.name); o.castShadow=shadow; o.receiveShadow=shadow; meshes.push({mesh:o,key:k.key,name:k.name}); }
-  });
-  return {nodes,meshes};
-}
-function label(v,text,no){ const e=document.createElement('div'); e.className='lbl'; e.innerHTML=(no?`<b>${no}</b>`:'')+text; e.style.display='none'; v.el.appendChild(e); return e; }
-function place(v,e,w){ const p=w.clone().project(v.cam); if(p.z>1){e.style.display='none';return;} e.style.display=''; e.style.left=((p.x+1)/2*v.el.clientWidth)+'px'; e.style.top=((1-p.y)/2*v.el.clientHeight)+'px'; }
-
-// ---------- manken kol, el ve alet (montaj sahnesi, CAD koordinatı) ----------
-function manken(){
-  const g=new THREE.Group(); g.name='manken';
-  const skin=new THREE.MeshPhysicalMaterial({color:0xd9d3ca,roughness:.62,clearcoat:.1});
-  const lathe=(pts)=>new THREE.LatheGeometry(pts.map(p=>new THREE.Vector2(p[0],p[1])),72);
-  const ust=new THREE.Mesh(lathe([[0,0],[49.6,0],[50,40],[50,150],[48.5,230],[45,290],[0,296]]),skin); ust.rotation.x=Math.PI/2; g.add(ust);
-  const dir=new THREE.Mesh(new THREE.SphereGeometry(49.6,64,32),skin); g.add(dir);
-  const on=new THREE.Mesh(lathe([[0,0],[38,0],[38,175],[35,215],[30,255],[27,272],[0,276]]),skin); g.add(on);
-  // el: avuç + parmaklar kalem tutuşu
-  const avuc=new THREE.Mesh(new THREE.SphereGeometry(1,48,24),skin); avuc.scale.set(31,46,19); avuc.position.set(4,314,-8); avuc.rotation.x=0.35; g.add(avuc);
-  const cap=(r,len,pos,rot)=>{ const m=new THREE.Group(); const c=new THREE.Mesh(new THREE.CylinderGeometry(r,r*0.92,len,24),skin); m.add(c);
-    const s1=new THREE.Mesh(new THREE.SphereGeometry(r,24,12),skin); s1.position.y=len/2; m.add(s1); const s2=new THREE.Mesh(new THREE.SphereGeometry(r*.92,24,12),skin); s2.position.y=-len/2; m.add(s2);
-    m.position.set(...pos); m.rotation.set(...rot); g.add(m); };
-  cap(9,34,[26,326,-24],[0.85,0,-0.45]);   // başparmak
-  cap(11,40,[4,348,-30],[0.8,0,0.12]);      // parmaklar (eldivenli, tek kütle)
-  // aleti (türbin) kalem gibi tutuyor: arka uç hortumun başında (30,300,-10)
-  const tool=new THREE.Group();
-  const steel=new THREE.MeshPhysicalMaterial({color:0xd5d8db,metalness:1,roughness:.22});
-  const body=new THREE.Mesh(lathe([[0,0],[6.5,0],[7.5,10],[8,60],[7,110],[6,128],[0,130]]),steel); tool.add(body);
-  const head=new THREE.Mesh(new THREE.CylinderGeometry(7.5,7.5,14,32),steel); head.rotation.z=Math.PI/2; head.position.set(3,134,0); tool.add(head);
-  const bur=new THREE.Mesh(new THREE.CylinderGeometry(.8,.6,14,12),new THREE.MeshPhysicalMaterial({color:0xe8d9a0,metalness:1,roughness:.3})); bur.position.set(3,134,-12); bur.rotation.x=Math.PI/2; tool.add(bur);
-  const grip=new THREE.Mesh(new THREE.CylinderGeometry(8.2,8.2,36,32,1,true),new THREE.MeshPhysicalMaterial({color:0x9aa0a6,metalness:1,roughness:.55,side:THREE.DoubleSide})); grip.position.y=70; tool.add(grip);
-  const a=V(30,300,-10), b=V(8,400,-62);
-  tool.position.copy(a); tool.quaternion.setFromUnitVectors(V(0,1,0),b.clone().sub(a).normalize()); g.add(tool);
-  g.traverse(o=>{ if(o.isMesh){ o.castShadow=true; o.receiveShadow=true; } });
-  return g;
-}
-
-// ---------- yükleme ----------
-const loader=new THREE.GLTFLoader();
-const load=u=>new Promise((res,rej)=>loader.load(u,res,undefined,rej));
-
-// HERO
-const hv=viewer(document.getElementById('hero'),{exposure:1.05,keyI:2.6,rimI:2.4,rimColor:0xffc9a8,fov:28});
-const KL_OFF={P01:[0,14,0],P02:[0,-14,0],P03:[0,0,20],P04:[0,0,0],P07:[-11,0,0],P06:[-19,0,0],P05:[-27,0,0],P08:[-40,0,0],P09:[-50,0,0]};
-let heroEx=0, heroGoal=0, heroK=null;
-// TAKMA
-const gv=viewer(document.getElementById('gview'),{exposure:1.0,shadow:true,keyI:2.4,rimI:1.2,fov:30});
-const G={klips:null,montaj:null};
-
-Promise.all([load('klips_detay.json'),load('manson_detay_montaj.json')]).then(([gk,gm])=>{
-  // hero: klips
-  const hroot=gk.scene; hv.scene.add(hroot); hroot.updateMatrixWorld(true);
-  heroK=prep(hroot.children[0],hv,false); heroK.root=hroot.children[0];
-  const hb=new THREE.Box3().setFromObject(hroot), hc=hb.getCenter(new THREE.Vector3());
-  hroot.position.sub(hc); hroot.updateMatrixWorld(true);
-  hv.cam.position.set(150,62,190); hv.ctl.target.set(0,0,0); hv.ctl.autoRotate=!reduce; hv.ctl.autoRotateSpeed=1.1; hv.ctl.minDistance=60; hv.ctl.maxDistance=320;
-  heroK.nodes.forEach(n=>{ n.off=V(...(KL_OFF[n.key]||[0,0,0])); if(n.key!=='ref'&&P[n.key]) n.lbl=label(hv,P[n.key].ad,P[n.key].no); });
-  document.getElementById('heroLoad').remove();
-
-  // takma: klips + montaj (ayrı kökler)
-  const ck=gk.scene.clone(true), cm=gm.scene;
-  [ck,cm].forEach(s=>{ gv.scene.add(s); s.updateMatrixWorld(true); });
-  G.klips=prep(ck.children[0],gv,true); G.klips.root=ck.children[0]; G.klips.top=ck;
-  G.montaj=prep(cm.children[0],gv,true); G.montaj.root=cm.children[0]; G.montaj.top=cm;
-  G.montaj.meshes.forEach(m=>{ if(m.key==='ref'&&!/hortum/.test(m.name)) m.mesh.visible=false; });
-  G.montaj.root.add(manken());
-  G.klips.nodes.forEach(n=>{ if(n.key!=='ref'&&P[n.key]&&!['P05','P06','P07','P09'].includes(n.key)) n.lbl=label(gv,n.key==='P04'?'Gövde (mıknatıslı)':P[n.key].ad,P[n.key].no); });
-  // gölge zeminleri
-  const bk=new THREE.Box3().setFromObject(ck); G.klips.ground=shadowGround(gv,bk.min.y-6,600); G.klips.box=bk;
-  const bm=new THREE.Box3().setFromObject(cm); G.montaj.ground=shadowGround(gv,bm.min.y-5,4000); G.montaj.box=bm;
-  document.getElementById('gLoad').remove();
-  goStep(0,true);
-}).catch(e=>{ document.querySelectorAll('.loading').forEach(x=>x.textContent='Model yüklenemedi: '+e.message); });
-
-document.getElementById('heroEx').addEventListener('input',e=>{ heroGoal=+e.target.value; hv.ctl.autoRotate=!reduce&&heroGoal<0.05; });
-
-// ---------- montaj rehberi ----------
-const GV=['P04','P05','P06','P07'];
-const OUTK={P01:[0,24,0],P02:[0,-24,0],P03:[0,0,30],P04:[0,0,48],P05:[0,0,48],P06:[0,0,48],P07:[0,0,48],P08:[-48,0,0],P09:[-48,0,0]};
-const H=[34,0,-60], AYRIL=[34,34,-26], KOP=[18,-60,-120], GIY=[0,250,0];
-function kl(on){ const o={}; for(const k in OUTK) o[k]=on.includes(k)?[0,0,0]:OUTK[k]; return o; }
-const GUIDE=[
- {who:'Klinik / asistan · bir kez, her alete', set:'klips', t:'Kutudan çıkanlar', d:'İki burç yarımı, mıknatıslı gövde, siyah durdurucu halka. Ped ve çelik disk manşonun üstünde durur.', k:kl([])},
- {set:'klips', t:'Burç yarımlarını hortumun üstünde kapat', d:'Sert omuz (geniş kenar) ELE bakar (görselde aşağısı el, yukarısı ünite tarafı). Yarımlar dil-yuvayla birbirine oturur; içteki nervürler hortumu sıkı tutar, burç kaymaz.', k:kl(['P01','P02'])},
- {set:'klips', t:'Gövdeyi ünite tarafından geçir', d:'Beyaz gövde, kubbesi dışarı bakacak şekilde burcun üstünden kaydırılır ve sert omza dayanır.', k:kl(['P01','P02',...GV])},
- {set:'klips', t:'Durdurucu halkayı oluğa tak', d:'Siyah halka ünite ucundaki oluğa "çıt" diye oturur. Gövde artık çıkmaz.', k:kl(['P01','P02','P03',...GV])},
- {set:'klips', t:'Kontrol: gövde dönüyor mu?', d:'Hortumu çevir: burç hortumla döner, gövde serbest kalır. Klips artık hortumda kalıcı; hasta arası hortumla birlikte silinir.', k:kl(['P01','P02','P03',...GV]), spin:true},
- {who:'Hekim · her gün', set:'montaj', t:'Manşonu giy', d:'Formanın üstüne, önlüğün altına giyilir. Kol elden içeri geçer; pedler ön kolun dış yanına, dirsekten 10 ve 15 cm’ye gelir. Dirsek arkası açık.', st:{man:GIY,kl:H}, gl:{man:[0,0,0],kl:H}},
- {who:'Hekim · her hastada', set:'montaj', t:'Aleti al, ön kolunu klipse bastır', d:'Alet alınınca klips hortumda elin altında sarkar. Ön kolu hafifçe çevirip sarkan klipse bastır: tık. Bakmadan, tek hareket.', st:{kl:H}, gl:{kl:[0,0,0]}, tik:true},
- {set:'montaj', t:'Çalış', d:'Hortumun ağırlığı ve ünitenin çekişi U çukurun dik duvarına biner; yük el yerine ön koldan taşınır. Klips ile el arasındaki gevşek pay bileği serbest bırakır.', st:{kl:[0,0,0]}, gl:{kl:[0,0,0]}},
- {set:'montaj', t:'Aleti askıya bırak', d:'Kol uzaklaşınca hortum klipsi ele doğru ve dışarı çeker; klips sığ rampadan çıkar ve hortumda kalır. Ayırmak için ayrı bir hareket yok.', st:{kl:[0,0,0]}, gl:{kl:AYRIL}},
- {set:'montaj', t:'Asistanın eli hortuma takılırsa', d:'Çekiş eşiği aşılınca klips koldan kopar, alet hekimin elinde kalır. Tekrar bağlamak için 7. adım.', st:{kl:[0,0,0]}, gl:{kl:KOP}, hizli:true},
-];
-let guide=0, gStart=0, playT=null;
-const gList=document.getElementById('gList');
-GUIDE.forEach((g,i)=>{
-  if(g.who){ const h=document.createElement('div'); h.className='who'; h.textContent=g.who; gList.appendChild(h); }
-  const b=document.createElement('button'); b.className='gstep'; b.id='g'+i;
-  b.innerHTML=`<i>${i+1}</i><span>${g.t}</span><small>${g.d}</small>`; b.onclick=()=>{stopPlay();goStep(i);}; gList.appendChild(b);
-});
-function gOff(n,g,which){
-  if(g.set==='klips') return n.key==='ref'?[0,0,0]:(g.k[n.key]||[0,0,0]);
-  const d=g[which]||{};
-  if(/_m$/.test(n.name)||/hortum/.test(n.name)) return d.kl||[0,0,0];
-  if(/^(P10|P11|P08|P09)/.test(n.name)) return d.man||[0,0,0];
-  return [0,0,0];
-}
-const CAMS={klips:{cam:V(100,135,120),tgt:V(-12,0,16)},montaj:{cam:V(930,280,230),tgt:V(40,160,-20)}};
-let gCam=null,gTgt=null,curSet=null;
-function goStep(i,instant){
-  if(!G.klips) return;
-  i=Math.max(0,Math.min(GUIDE.length-1,i)); const g=GUIDE[i];
-  if(curSet!==g.set||instant){
-    curSet=g.set;
-    G.klips.top.visible=g.set==='klips'; G.klips.ground.visible=g.set==='klips';
-    G.montaj.top.visible=g.set==='montaj'; G.montaj.ground.visible=g.set==='montaj';
-    const S=G[g.set]; S.root.updateMatrixWorld(true);
-    gCam=S.root.localToWorld(CAMS[g.set].cam.clone()); gTgt=S.root.localToWorld(CAMS[g.set].tgt.clone());
-    if(instant){ gv.cam.position.copy(gCam); gv.ctl.target.copy(gTgt); gCam=null; }
-    fitShadow(gv,S.box);
-  }
-  guide=i; gStart=performance.now();
-  G[g.set].nodes.forEach(n=>{ n.gT=V(...gOff(n,g,'gl')); if(g.set==='montaj'){ n.node.position.copy(n.base).add(V(...gOff(n,g,'st'))); } n.node.rotation.z=0; });
-  document.querySelectorAll('.gstep').forEach((b,j)=>b.setAttribute('aria-current',j===i));
-  document.getElementById('gNum').textContent=`${i+1} / ${GUIDE.length}`;
-  document.getElementById('gTitle').textContent=g.t;
-  if(g.tik) setTimeout(()=>{ if(guide===i){ const t=document.getElementById('tik'); t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),900);} },1000);
-}
-function stopPlay(){ clearInterval(playT); playT=null; }
-document.getElementById('gNext').onclick=()=>{stopPlay();goStep(guide+1);};
-document.getElementById('gPrev').onclick=()=>{stopPlay();goStep(guide-1);};
-document.getElementById('gPlay').onclick=()=>{ stopPlay(); let i=0; goStep(0); playT=setInterval(()=>{ i++; if(i>=GUIDE.length){stopPlay();return;} goStep(i); },4200); };
-gv.ctl.addEventListener('start',()=>{gCam=null;});
-
-// ---------- parça kartları ----------
-const parts=document.getElementById('parts');
-Object.values(P).forEach(p=>{
-  const a=document.createElement('article'); a.className='part';
-  a.innerHTML=`<header><span class="n">${String(p.no).padStart(2,'0')}</span><span class="g">${p.g?p.g.toFixed(2).replace('.',',')+' g':''}${p.adet!=='1'&&p.adet!=='—'?' · ×'+p.adet:''}</span></header>
-   <h3>${p.ad}</h3><p>${p.is}</p><dl><dt>Ölçü</dt><dd>${p.olcu}</dd><dt>Malzeme</dt><dd>${p.mal}</dd><dt>Makette</dt><dd>${p.maket}</dd></dl>`;
-  parts.appendChild(a);
-});
-// ---------- teknik resim ----------
-const PAFTA=[['resim/pafta1_klips.png','Klips: montaj ve A-A kesiti'],['resim/pafta2_ped.png','Ped: U çukur ve B-B kesiti'],['resim/pafta3_manson.png','Manşon: kolda yerleşim'],['resim/pafta4_patlatilmis.png','Patlatılmış görünüş ve parça listesi']];
-const th=document.getElementById('thumbs');
-PAFTA.forEach(([src,t],i)=>{ const b=document.createElement('button'); b.className='thumb'; b.innerHTML=`<img src="${src}" alt="${t}" loading="lazy"><span>${i+1} · ${t}</span>`;
-  b.onclick=()=>{ document.getElementById('lbI').src=src; document.getElementById('lbT').textContent=t; document.getElementById('lb').hidden=false; }; th.appendChild(b); });
-document.getElementById('lbX').onclick=()=>{document.getElementById('lb').hidden=true;};
-addEventListener('keydown',e=>{ if(e.key==='Escape') document.getElementById('lb').hidden=true; });
-
-// ---------- döngü ----------
-const tb=new THREE.Box3(), tv=new THREE.Vector3();
-let last=performance.now();
-function frame(now){
-  const dt=Math.min((now-last)/1000,.05); last=now;
-  const k=reduce?1:1-Math.exp(-dt*6);
-  if(heroK&&hv.visible){
-    heroEx+=(heroGoal-heroEx)*k;
-    heroK.nodes.forEach(n=>{ n.node.position.copy(n.base).addScaledVector(n.off,heroEx);
-      if(n.key==='ref') n.node.traverse(o=>{ if(o.isMesh){ o.material.transparent=true; o.material.opacity=1-.8*Math.min(1,heroEx*2); o.material.depthWrite=heroEx<.3; } }); });
-    hv.ctl.update(); hv.r.render(hv.scene,hv.cam);
-    heroK.nodes.forEach(n=>{ if(!n.lbl) return; if(heroEx<.35){n.lbl.style.display='none';return;} tb.setFromObject(n.node).getCenter(tv); place(hv,n.lbl,tv); });
-  }
-  if(G.klips&&gv.visible){
-    const g=GUIDE[guide], S=G[g.set];
-    const kk=reduce?1:1-Math.exp(-dt*(g.hizli?9:3.2)), wait=now-gStart>350;
-    S.nodes.forEach(n=>{ if(!n.gT) return; if(wait) n.node.position.lerp(n.base.clone().add(n.gT),kk);
-      if(g.spin&&(n.key==='P01'||n.key==='P02'||n.key==='P03'||n.key==='ref')) n.node.rotation.z=Math.sin(now/600)*1.2; });
-    if(gCam){ gv.cam.position.lerp(gCam,k); gv.ctl.target.lerp(gTgt,k); if(gv.cam.position.distanceTo(gCam)<.5) gCam=null; }
-    gv.ctl.update(); gv.r.render(gv.scene,gv.cam);
-    G.klips.nodes.forEach(n=>{ if(!n.lbl) return; if(g.set!=='klips'||guide>3){n.lbl.style.display='none';return;} tb.setFromObject(n.node).getCenter(tv); place(gv,n.lbl,tv); });
-  }
-  requestAnimationFrame(frame);
-}
-requestAnimationFrame(frame);
-})();
+document.querySelectorAll('.tabs .tab').forEach(t=>t.onclick=()=>show(t.dataset.m));
+mv.addEventListener('load',()=>mv.jumpCameraToGoal?.());
+mv.addEventListener('progress',e=>{const p=e.detail.totalProgress;bar.style.width=(p*100)+'%';if(p>=1)setTimeout(()=>bar.style.width='0',400)});
+const rot=document.getElementById('rot');
+rot.onclick=()=>{const on=mv.hasAttribute('auto-rotate');on?mv.removeAttribute('auto-rotate'):mv.setAttribute('auto-rotate','');rot.textContent=on?'Döndür':'Döndürmeyi durdur'};
+document.getElementById('reset').onclick=()=>{mv.setAttribute('camera-orbit',cur.orbit);mv.setAttribute('camera-target',cur.target||'auto auto auto');mv.setAttribute('field-of-view','auto');mv.jumpCameraToGoal?.()};
+if(matchMedia('(pointer:coarse)').matches)document.getElementById('hint').textContent='1 parmak döndür · 2 parmak yakınlaştır';
+// --- Parça isimleri (CAD mm koordinatı + patlatma vektörü; GLB'deki 'patlat' ile aynı) ---
+const L={
+ klips:[['P01','Burç yarımı A',[0,11,25],[0,22,0]],['P02','Burç yarımı B',[0,-11,25],[0,-22,0]],['P03','Durdurucu',[0,0,32],[0,0,30]],
+  ['P04','Gövde',[8,8,-6.5],[0,0,0]],['P05','Kubbe kapak',[-14,0,6.5],[-32,0,0]],['P06','Mıknatıs',[-11.5,0,5],[-22,0,0]],
+  ['P07','Çelik kap',[-11,0,-6],[-12,0,0]],['P08','Ped',[-14,18,0],[-48,0,0]],['P09','Çelik disk',[-15,4,-14.5],[-60,0,0]],['ref','Hortum (ölçek için)',[0,0,48],[0,0,0]]],
+ manson:[['P10','Manşon',[53,0,55],[0,0,0]],['P11','Biye',[54,0,176],[0,0,0]],['P11','Kulp',[0,55,200],[0,0,0]],
+  ['P08','Ped ×3 + çelik disk',[55.5,0,120],[75,0,0]],['—','Klips',[67,150,0],[130,0,0]],['ref','Kol (ölçek için)',[0,0,270],[0,0,0]]]
+};
+let hs=[];
+function hp(a,o,e){const x=a[0]+o[0]*e,y=a[1]+o[1]*e,z=a[2]+o[2]*e;return (x/1000)+'m '+(z/1000)+'m '+(-y/1000)+'m';}
+function buildLabels(k){hs.forEach(h=>h.el.remove());hs=L[k].map((p,i)=>{const el=document.createElement('div');el.className='lbl'+(p[0]==='ref'?' ref':'');el.slot='hotspot-p'+i;
+  el.innerHTML=(p[0]==='ref'||p[0]==='—'?'':'<b>'+p[0]+'</b>')+p[1];el.dataset.position=hp(p[2],p[3],0);mv.appendChild(el);return {el,p,name:'hotspot-p'+i};});}
+function moveLabels(){const e=(1-Math.cos(Math.PI*T))/2;hs.forEach(h=>{if(h.p[3].some(v=>v))mv.updateHotspot?.({name:h.name,position:hp(h.p[2],h.p[3],e)})});}
+const bI=document.getElementById('bIsim');
+bI.onclick=()=>{const off=mv.classList.toggle('nolbl');bI.classList.toggle('on',!off);bI.textContent=off?'İsimler kapalı':'İsimler açık';};
+// --- Patlatma / oynatma ---
+const sl=document.getElementById('sl'),bO=document.getElementById('bOynat');
+let T=0,raf=0,loop=false;
+function setT(v){T=Math.max(0,Math.min(1,v));sl.value=T;if(mv.loaded){mv.pause();mv.currentTime=T*0.998;}moveLabels();}
+function tween(to,ms,done){cancelAnimationFrame(raf);const a=T,t0=performance.now();
+  const f=now=>{const k=Math.min(1,(now-t0)/ms);setT(a+(to-a)*k);if(k<1)raf=requestAnimationFrame(f);else done&&done();};raf=requestAnimationFrame(f);}
+function stopLoop(){loop=false;bO.textContent='▶ Oynat';bO.classList.remove('on');}
+function cycle(){if(!loop)return;tween(T<0.5?1:0,1400,()=>setTimeout(cycle,700));}
+document.getElementById('bAyir').onclick=()=>{stopLoop();tween(1,1000)};
+document.getElementById('bBirlestir').onclick=()=>{stopLoop();tween(0,1000)};
+bO.onclick=()=>{if(loop){stopLoop();cancelAnimationFrame(raf);return;}loop=true;bO.textContent='❚❚ Durdur';bO.classList.add('on');cycle();};
+sl.oninput=()=>{stopLoop();cancelAnimationFrame(raf);setT(+sl.value)};
+mv.addEventListener('load',()=>{mv.pause();setT(T)});
+document.querySelectorAll('.tabs .tab').forEach(t=>t.addEventListener('click',()=>{stopLoop();cancelAnimationFrame(raf);T=t.dataset.m==='klips'?1:0;sl.value=T;}));
+const K0=new URLSearchParams(location.search).get('m')==='klips'?'klips':'manson';T=K0==='klips'?1:0;sl.value=T;show(K0);
 </script>
-</body></html>
+</body>
+</html>
